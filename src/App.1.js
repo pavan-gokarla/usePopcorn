@@ -5,13 +5,7 @@ import { WatchedMoviesList } from "./WatchedMoviesList";
 import { Box } from "./Box";
 import { Loader } from "./Loader";
 import { ErrorMessage } from "./ErrorMessage";
-import { MovieDetails } from "./MovieDetails";
-import { Summary } from "./Summary";
-
-export const apiKey = "906245cc";
-
-export const average = (arr) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+import { apiKey, MovieDetails, Summary } from "./App";
 
 export default function App() {
   const [query, setQuery] = useState("");
