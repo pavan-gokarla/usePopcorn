@@ -22,18 +22,40 @@ export function MovieDetails({ selectedId, onClose, onAdding, watched }) {
   } = movie;
 
   useEffect(() => {
+    const callBack = (e) => {
+      if (e.code === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", callBack);
+    return () => {
+      document.removeEventListener("keydown", callBack);
+    };
+  }, [onClose]);
+
+  useEffect(() => {
     async function fetchMovieDetails() {
-      setIsLoading(true);
-      const res = await fetch(
-        `https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`
-      );
-      const data = await res.json();
-      setMovie(data);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedId}`
+        );
+        const data = await res.json();
+        setMovie(data);
+        setIsLoading(false);
+      } catch (e) {
+        setIsLoading(false);
+      }
     }
     fetchMovieDetails();
   }, [selectedId]);
-
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+    return () => {
+      document.title = "usePopcorn";
+    };
+  }, [title]);
   function handleAdd() {
     const newMovie = {
       imdbID: selectedId,

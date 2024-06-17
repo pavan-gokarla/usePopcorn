@@ -11,6 +11,7 @@ export function Navbar({ query, setQuery, movies }) {
         placeholder="Search movies..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        id="target-search"
       />
       <p className="num-results">
         Found <strong>{movies?.length}</strong> results
